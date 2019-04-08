@@ -6,7 +6,9 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.constraint.Constraints;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class ProgrammaticConstraints extends AppCompatActivity {
     @Override
@@ -24,8 +26,9 @@ public class ProgrammaticConstraints extends AppCompatActivity {
             button.setId(i + 1);
             button.setBackgroundColor(getResources().getColor(R.color.colorAccent));
             button.setTextColor(getResources().getColor(R.color.white));
+            button.setWidth(0);
 
-            CharSequence text = "Button " + button.getId();
+            CharSequence text = "" + button.getId();
             button.setText(text);
 
             layout.addView(button);
@@ -33,15 +36,15 @@ public class ProgrammaticConstraints extends AppCompatActivity {
             ConstraintSet constraints = new ConstraintSet();
             constraints.clone(layout);
 
-            // center the buttons horizontally
-            constraints.connect(i + 1, ConstraintSet.LEFT, layout.getId(), ConstraintSet.LEFT);
-            constraints.connect(i + 1, ConstraintSet.RIGHT, layout.getId(), ConstraintSet.RIGHT);
+            // center the buttons vertically
+            constraints.connect(i + 1, ConstraintSet.TOP, layout.getId(), ConstraintSet.TOP);
+            constraints.connect(i + 1, ConstraintSet.BOTTOM, layout.getId(), ConstraintSet.BOTTOM);
 
-            // add vertical constraints
+            // add horizontal constraints
             if (i == 0) {
-                constraints.connect(i + 1, ConstraintSet.TOP, layout.getId(), ConstraintSet.TOP, dpToPixels(this, 20));
+                constraints.connect(i + 1, ConstraintSet.LEFT, layout.getId(), ConstraintSet.LEFT, dpToPixels(this, 12));
             } else {
-                constraints.connect(i + 1, ConstraintSet.TOP, i, ConstraintSet.BOTTOM, dpToPixels(this, 20));
+                constraints.connect(i + 1, ConstraintSet.LEFT, i, ConstraintSet.RIGHT, dpToPixels(this, 12));
             }
 
             constraints.applyTo(layout);
